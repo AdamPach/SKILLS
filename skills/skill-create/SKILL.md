@@ -1,93 +1,103 @@
 ---
 name: skill-create
-description: "Create, continue, or revise a skill through adaptive interviews and section-by-section drafting. Confirm shared understanding, develop supporting files when needed, and obtain user approval before saving content."
+description: "Create, continue, or revise a skill through scoped interviews and section-by-section drafting. Confirm shared understanding and obtain approval before saving."
 disable-model-invocation: true
 ---
 
 # Goal
 
-Help the user create a skill through interviews and section-by-section drafting. Understand their intent, then propose the structure and Goal in the first round. Develop one remaining section per round for user approval. Write concise, explicit instructions and organize supporting files for use when needed.
+Help the user create, continue, or revise a skill. Establish shared understanding of its overall process before drafting sections. Maintain agreed terminology and produce concise, explicit instructions, with supporting files when needed.
+
+# Terminology
+
+- **Process:** The actions and decisions through which a skill produces its intended outputs from its inputs.
+- **Session:** A defined scope for establishing and confirming shared understanding.
+- **Shared understanding:** The user-confirmed understanding reached within a session, including points they explicitly deferred or said they do not know.
+- **Section proposal:** A summary of understanding, an explanation of intended behavior, and proposed section wording.
+- **Approval to save:** Explicit authorization to save specific proposed content. Confirming shared understanding does not authorize saving.
+- **Pending section:** A section blocked by an unresolved decision about required behavior.
+- **Supporting file:** Templates, references, or other content used by the skill and kept outside `SKILL.md`.
 
 # Inputs
 
-- **Skill:** Required. A new skill idea or a reference to an existing skill. Ask if missing.
-- **Context:** Optional. Relevant constraints, examples, prior decisions, and supporting material.
+- **Skill:** Required. A skill idea, desired outcome, or existing skill reference. Ask if missing.
+- **Context:** Optional. Process ideas, constraints, examples, prior decisions, and supporting material.
 
-Use the request and available context to determine whether to create a new skill, continue an unfinished draft, or revise a completed skill. Ask if unclear.
+A complete process is not required. Develop missing details through questions and options, with the user deciding.
 
-When continuing or revising an existing skill, read it and identify relevant prior decisions before asking further questions. Read supporting files only when needed for the section being developed.
+Determine whether to create, continue, or revise the skill. For existing skills, read the skill and relevant prior decisions before asking questions. Follow clear handoffs without reconfirming settled decisions. Ask when the starting point is unclear.
+
+Read supporting files only when needed to clarify the process or develop the current section.
 
 # Outputs
 
-- **Section proposal:** A summary of the agent’s understanding, an explanation of the intended skill behavior, and proposed section wording.
-- **Skill file:** A new or updated `SKILL.md` containing sections the user has approved for saving.
-- **Supporting files:** Templates, references, or other files needed by the skill, with instructions stating when to load them.
-
-Save content only after the user approves saving it. If the user supplies replacement wording or requests changes, revise the proposal and ask again.
+- **Section proposals** for user review.
+- **Skill file:** A new or updated `SKILL.md` containing content approved for saving.
+- **Supporting files** needed by the skill, with instructions defining when and how to use them.
 
 # Workflow
 
-1. Establish where to begin.
-   - For a new skill, clarify intent, then propose the section structure and Goal together.
-   - For an existing skill, identify settled content and the next unfinished section or requested revision. Follow a clear handoff without reconfirming it. Ask where to resume when unclear.
-   - Require Goal, Inputs, Outputs, and Workflow. Suggest additional sections when useful.
+Use `interview` in Interview mode. Supply each session’s topic, perspective, scope, and available context, including prior answers and decisions. Follow its questioning and confirmation rules. Confirm shared understanding in each session before preparing its proposal. Apply Writing Rules throughout.
 
-2. Use `interview` in Interview mode to clarify the section being developed. Supply the topic, perspective, and available context. Confirm shared understanding before preparing the section proposal.
+1. **Understand the overall process.**
+   Start from the user’s idea and available context. Use an initial session to clarify the main actions, decisions, conditions, user involvement, and completion. For existing skills, reuse confirmed understanding and clarify the requested changes and their effects.
 
-3. Develop one section at a time after the initial structure and Goal proposal. Apply the Writing Rules throughout. Read supporting files only when needed.
+2. **Propose the structure and Goal.**
+   For new skills, propose them together after confirming the overall process. Require Goal, Terminology, Inputs, Outputs, and Workflow; suggest other sections when useful. For existing skills, propose only necessary additions or revisions. Follow step 6 for approval and saving.
 
-4. When a conflict with an earlier section blocks the current section, resolve it first. Otherwise, keep it open for later resolution. Present changes to approved sections for approval before saving.
+3. **Establish and maintain Terminology.**
+   Develop initial definitions early in a dedicated session. Revisit them whenever discussion, drafting, or review introduces a term or changes its meaning. Check affected sections and supporting files for consistent usage. Follow step 6 for changes to approved definitions and wording.
 
-5. Present each section proposal with a summary of understanding, an explanation of intended behavior, and the proposed wording. Ask whether to approve and save it.
+4. **Develop one remaining section or supporting file at a time.**
+   Give each its own session. Reuse earlier answers and revisit settled decisions only when new information affects them. Clarify missing behavior and contradictions before drafting. Follow Supporting Files when selecting the next file to develop.
 
-6. If the user supplies replacement wording or requests changes, revise the proposal and present it again for approval. Save only after the user approves the proposed content for saving.
+5. **Handle unresolved decisions.**
+   Keep deferred and unknown points explicit; session confirmation does not resolve them. When a decision prevents clear instructions, keep the affected section pending rather than inventing behavior. Resolve blocking conflicts before drafting dependent content. Continue independent work where possible; otherwise, explain which decisions are needed to continue.
 
-7. Continue with the next unfinished section or supporting file. Use the skill and its supporting files as the saved work. Do not create separate decision logs or progress files.
+6. **Propose, approve, and save.**
+   Present the section proposal and ask whether to approve and save it. If the user requests changes or supplies replacement wording, revise the proposal and ask again. If intended behavior changes, revisit the affected session before proposing revised wording. Save only content explicitly approved for saving.
 
-8. When drafting is complete, apply Final Review. Address remaining issues through the same clarification and approval process. State that the skill is ready only when it meets the completion criteria.
+7. **Continue and review.**
+   Continue with the next unfinished section or supporting file. Revisit pending sections when their blocking decisions are resolved. When drafting is complete, apply Final Review and address remaining issues through the same clarification and approval process.
 
 # Writing Rules
 
 Apply these rules to `skill-create`, every skill it produces, their supporting files, and their outputs:
 
-- Use one agreed term for each concept throughout the skill and its outputs.
-- When the user’s wording is unclear or uses different terms for what may be the same concept, ask what they mean and which term to use.
-- Replace vague wording with explicit instructions. Ask for clarification when making it precise would require guessing.
-- For conditional instructions, state when they apply.
-- Group related instructions under their shared condition. Keep the condition clear wherever the instructions apply.
-- Use direct verbs.
+- Use one agreed term for each concept. Define terms with specific or potentially ambiguous meanings in Terminology and use those definitions consistently.
+- When wording or terminology is unclear, ask what the user means and which term to use.
+- Replace vague wording with explicit instructions. Ask when doing so would require guessing.
+- State when conditional instructions apply. Group related instructions under a clear shared condition.
+- Use direct verbs and keep each instruction focused on one action or decision.
 - Make required, optional, and prohibited behavior explicit.
-- Keep each instruction focused on one action or decision.
-- Remove repetition and filler. Keep explanations when they help interpretation or decisions.
-- Preserve necessary conditions and exceptions when shortening text.
-- Define quality and completion requirements in terms the agent can check.
-- When content is needed only for a specific task, consider a supporting file and state when to read it.
+- Remove repetition and filler while preserving necessary conditions, exceptions, and useful explanations.
+- Define quality and completion requirements the agent can check.
+- Consider supporting files for content needed only for specific tasks.
 
 # Supporting Files
 
-- Use a supporting file when content is long or is not needed on every skill run.
-- When recommending a supporting file because of content length, explain why and confirm placement with the user during the interview.
-- Keep instructions for selecting and using supporting files in `SKILL.md`.
-- Link each supporting file from the relevant section and state its purpose and when to load it.
-- Load a supporting file only when its stated loading condition applies.
-- When a section needs a supporting file, develop that file next, before moving to the next `SKILL.md` section.
-- Follow the Workflow for each supporting file, including the interview, explicit shared-understanding confirmation, content proposal, and separate approval to save.
-- Keep saved work limited to the skill and its necessary supporting files. Do not create separate decision logs, progress files, or stored interview history.
+- Use supporting files for long content or material not needed on every run. When length motivates the recommendation, explain why and confirm placement during the interview.
+- In the relevant `SKILL.md` section, link each file and explain its purpose, selection, and loading conditions. Load it only when those conditions apply.
+- Develop a needed supporting file next. If blocked by an unresolved decision, keep it and dependent work pending while continuing independent work where possible.
+- Follow Workflow for each file: its own session, confirmation of shared understanding, content proposal, and separate approval to save.
+- Save only the skill and necessary supporting files. Do not create separate decision logs, progress files, or stored interview history.
 
 # Final Review
 
-Evaluate the saved skill and its necessary supporting files against this checklist:
+Check the saved skill and its necessary supporting files:
 
-- **Completeness:** Required and agreed sections are finished, with no unresolved placeholders.
-- **Inputs and outputs:** Required inputs are identified, missing-input handling is defined, and the Workflow explains how to produce each output.
-- **Workflow:** The agent can determine what to do next, when to ask the user, and when to stop.
-- **Consistency:** Instructions do not contradict each other or the agreed intent.
-- **Writing:** The skill and its supporting files follow the Writing Rules.
-- **Supporting files:** Needed files exist, references resolve, and `SKILL.md` defines when to load and how to use each file.
-- **Approval:** The saved content matches what the user approved, and no requested changes remain outstanding.
+- **Completeness:** Required and agreed sections are finished, with no unresolved placeholders or decisions blocking required behavior.
+- **Process:** Instructions implement the confirmed actions, decisions, conditions, user involvement, and completion criteria.
+- **Terminology:** Specific or potentially ambiguous terms are defined and used consistently across the skill, supporting files, and outputs.
+- **Inputs and outputs:** Required inputs and missing-input handling are clear. Workflow explains how to produce each output.
+- **Workflow:** The agent can determine what to do next, when to ask, and when to stop.
+- **Consistency:** Instructions agree with each other and the confirmed intent.
+- **Writing:** The skill and supporting files follow Writing Rules.
+- **Supporting files:** Needed files exist, references resolve, and loading and usage instructions are clear.
+- **Approval:** Saved content matches the user’s approval, with no requested changes outstanding.
 
-Require every applicable check to pass. Explain any check marked not applicable. Do not use a numerical score.
+Require every applicable check to pass. Explain any check marked not applicable; do not use a numerical score.
 
-When a check fails or cannot be verified, identify the remaining work. Continue with the affected section or supporting file through the Workflow’s clarification and approval process. Recheck after approved changes are saved.
+For failed or unverifiable checks, identify the remaining work and return to the affected section or file through Workflow. Recheck after approved changes are saved.
 
 When every applicable check passes, explicitly state that the skill is ready.
